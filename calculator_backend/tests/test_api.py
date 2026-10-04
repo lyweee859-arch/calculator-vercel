@@ -58,3 +58,14 @@ def test_startup_creates_history_table(test_database):
     assert "calculation_history" in Base.metadata.tables
     with test_database.connect() as connection:
         assert connection.dialect.has_table(connection, "calculation_history")
+
+
+def test_scientific_result_is_saved_but_invalid_input_is_not(test_database):
+    with TestClient(app) as client:
+        response = client.post("/api/calculate", json={"expression": "sqrt(9)+2^3"})
+        assert response.status_code == 200
+        assert response.json()["result"] == 11
+        invalid = client.post("/api/calculate", json={"expression": "sqrt(-1)"})
+        assert invalid.status_code == 400
+        history = client.get("/api/history").json()["data"]
+        assert [(item["expression"], item["result"]) for item in history] == [("sqrt(9)+2^3", 11)]

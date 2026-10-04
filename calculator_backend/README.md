@@ -2,6 +2,8 @@
 
 FastAPI 后端，使用递归下降解析器计算表达式，再用 SQLAlchemy 与 psycopg 将成功记录写入 PostgreSQL。所有 API 路径和响应格式保留原样。没有使用 `eval()` 或 `exec()`。
 
+表达式支持四则运算、括号、`^`、`!`、sin/cos/tan 及反三角函数、sqrt、abs、ln、log、exp、π 和 e。三角函数使用弧度，`log` 以 10 为底。定义域错误返回 400，阶乘仅接受 0 到 170 的整数。
+
 ## 结构
 
 ```text

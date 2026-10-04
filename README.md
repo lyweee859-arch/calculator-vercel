@@ -1,6 +1,6 @@
 # 前后端分离计算器系统 · Vercel 版
 
-原生 HTML/CSS/JavaScript 前端调用同域 `/api/*`；FastAPI 用递归下降解析器完成计算；成功记录保存到 PostgreSQL。页面刷新和 Vercel 重新部署不会清空数据库历史。`calculator_frontend/` 保留独立前端源码，`public/` 是完全相同的 Vercel 静态文件；`calculator_backend/` 是独立后端代码。部署时**把本目录整体放进一个 GitHub 仓库**，不要分别导入两个子目录。课程要求的源码另外放在独立的 [前端仓库](https://github.com/lyweee859-arch/calculator-frontend) 和 [后端仓库](https://github.com/lyweee859-arch/calculator-backend)。
+原生 HTML/CSS/JavaScript 前端调用同域 `/api/*`；FastAPI 用递归下降解析器完成四则运算和科学函数计算；成功记录保存到 PostgreSQL。页面刷新和 Vercel 重新部署不会清空数据库历史。`calculator_frontend/` 保留独立前端源码，`public/` 是完全相同的 Vercel 静态文件；`calculator_backend/` 是独立后端代码。部署时**把本目录整体放进一个 GitHub 仓库**，不要分别导入两个子目录。课程要求的源码另外放在独立的 [前端仓库](https://github.com/lyweee859-arch/calculator-frontend) 和 [后端仓库](https://github.com/lyweee859-arch/calculator-backend)。
 
 ## 目录
 

@@ -16,9 +16,24 @@ def tokenize(expression):
         if char.isspace():
             index += 1
             continue
-        if char in "+-*/()":
-            tokens.append(Token(char, char))
+        if char in "+-*/()^!×÷":
+            operator = {"×": "*", "÷": "/"}.get(char, char)
+            tokens.append(Token(operator, operator))
             index += 1
+            continue
+        if char == "π":
+            tokens.append(Token("identifier", "pi"))
+            index += 1
+            continue
+        if char == "√":
+            tokens.append(Token("identifier", "sqrt"))
+            index += 1
+            continue
+        if char.isascii() and char.isalpha():
+            start = index
+            while index < len(expression) and expression[index].isascii() and expression[index].isalpha():
+                index += 1
+            tokens.append(Token("identifier", expression[start:index].lower()))
             continue
         if char in "0123456789.":
             start = index

@@ -25,7 +25,24 @@ function resetDisplay() {
 function insertText(value) {
   const start = expressionInput.selectionStart;
   const end = expressionInput.selectionEnd;
+  if (value === ")" && start === end && expressionInput.value[start] === ")") {
+    expressionInput.setSelectionRange(start + 1, start + 1);
+    expressionInput.focus();
+    return;
+  }
   expressionInput.setRangeText(value, start, end, "end");
+  expressionInput.focus();
+  resetDisplay();
+}
+
+function insertFunction(name) {
+  const start = expressionInput.selectionStart;
+  const end = expressionInput.selectionEnd;
+  const selected = expressionInput.value.slice(start, end);
+  const text = `${name}(${selected})`;
+  expressionInput.setRangeText(text, start, end, "end");
+  const cursor = selected ? start + text.length : start + name.length + 1;
+  expressionInput.setSelectionRange(cursor, cursor);
   expressionInput.focus();
   resetDisplay();
 }
@@ -151,9 +168,10 @@ async function clearHistory() {
   }
 }
 
-document.querySelector(".keypad").addEventListener("click", (event) => {
+function handleKeypadClick(event) {
   const button = event.target.closest("button");
   if (!button) return;
+  if (button.dataset.function) insertFunction(button.dataset.function);
   if (button.dataset.key) insertText(button.dataset.key);
   if (button.dataset.action === "clear") {
     expressionInput.value = "";
@@ -162,7 +180,10 @@ document.querySelector(".keypad").addEventListener("click", (event) => {
   }
   if (button.dataset.action === "backspace") backspace();
   if (button.dataset.action === "calculate") calculate();
-});
+}
+
+document.querySelector(".scientific-keypad").addEventListener("click", handleKeypadClick);
+document.querySelector(".keypad").addEventListener("click", handleKeypadClick);
 
 expressionInput.addEventListener("input", resetDisplay);
 historySearch.addEventListener("input", renderHistory);
@@ -178,7 +199,7 @@ document.addEventListener("keydown", (event) => {
   } else if (event.key === "Backspace" && document.activeElement !== expressionInput && document.activeElement !== historySearch) {
     event.preventDefault();
     backspace();
-  } else if (/^[0-9+*/().-]$/.test(event.key) && document.activeElement !== expressionInput && document.activeElement !== historySearch) {
+  } else if (/^[0-9+*/().^!πe-]$/.test(event.key) && document.activeElement !== expressionInput && document.activeElement !== historySearch) {
     event.preventDefault();
     insertText(event.key);
   }
