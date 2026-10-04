@@ -1,0 +1,11 @@
+.env
+.env.local
+.venv/
+.uv-cache/
+.python-install/
+.vercel/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.db
+*.db-*

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f0e9">
+  <title>计算器 · Calculator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">⌘</span><span>CALCULATOR <small>/ 计算工作台</small></span></div>
+      <button id="theme-toggle" class="text-button" type="button" aria-label="切换深色模式">◐ <span>切换主题</span></button>
+    </header>
+
+    <div class="workspace">
+      <section class="calculator-panel" aria-labelledby="calculator-title">
+        <div class="section-heading"><span class="eyebrow">01 / CALCULATE</span><h1 id="calculator-title">让每一步<br><em>都有迹可循。</em></h1><p>输入表达式，由服务器计算并保存结果。</p></div>
+        <div class="display">
+          <label for="expression">表达式 <span>EXPRESSION</span></label>
+          <input id="expression" name="expression" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="例如：(1+2)*3" maxlength="256" aria-describedby="error-message">
+          <div class="result-label">计算结果 <span>RESULT</span></div>
+          <output id="result" for="expression" aria-live="polite">—</output>
+          <p id="error-message" class="error-message" role="alert" hidden></p>
+        </div>
+        <div class="keypad" aria-label="计算器按键">
+          <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button><button type="button" data-key="/" class="operator">÷</button>
+          <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button><button type="button" data-key="*" class="operator">×</button>
+          <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button><button type="button" data-key="-" class="operator">−</button>
+          <button type="button" data-key="0">0</button><button type="button" data-key=".">.</button><button type="button" data-key="(">(</button><button type="button" data-key=")">)</button>
+          <button type="button" data-action="clear" class="utility">C</button><button type="button" data-action="backspace" class="utility" aria-label="删除一个字符">⌫</button><button type="button" data-action="calculate" class="equals">=</button><button type="button" data-key="+" class="operator">+</button>
+        </div>
+        <p class="keyboard-hint">键盘提示：Enter 计算 · Backspace 删除 · Esc 清空</p>
+      </section>
+
+      <section class="history-panel" aria-labelledby="history-title">
+        <div class="history-head"><div><span class="eyebrow">02 / HISTORY</span><h2 id="history-title">计算历史</h2></div><span id="history-count" class="count">00</span></div>
+        <div class="history-tools"><label class="search"><span class="visually-hidden">搜索历史记录</span><input id="history-search" type="search" placeholder="搜索表达式" autocomplete="off"></label><button id="clear-history" class="text-button danger" type="button">清空历史</button></div>
+        <p id="history-error" class="history-error" role="alert" hidden></p>
+        <ul id="history-list" class="history-list" aria-live="polite"></ul>
+        <p id="history-empty" class="empty-state">还没有计算记录。<br><span>试着输入一个表达式。</span></p>
+      </section>
+    </div>
+    <footer>CALCULATOR SYSTEM <span>前端 / API / SQLite</span></footer>
+  </main>
+</body>
+</html>
